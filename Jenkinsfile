@@ -14,7 +14,7 @@ pipeline{
             }
         }
 
-        stage("Build"){
+        stage("Build Process"){
             steps{
                 script{
                     sh 'mvn clean install'
@@ -22,11 +22,24 @@ pipeline{
             }
         }
 
+        stage("Build Image"){
+          steps{
+            script{
+              // using unix base so, name and version . means base root
+              sh 'docker build -t darioccm/jenkins-cicd:1.0 .'
+               //                 user_name_docker_hub/image_name:version .means root level
+            }
+          }
+
+        }
+
+      /*
         stage("Deploy"){
             steps{
                 deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: 'tomcat', path: '', url: 'http://localhost:9090/')], contextPath: 'jenkins-cicd', jar: '**/*.jar'
             }
         }
+      */
 
     }
 }
