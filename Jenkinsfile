@@ -33,13 +33,7 @@ pipeline{
 
         }
 
-      /*
-        stage("Deploy"){
-            steps{
-                deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: 'tomcat', path: '', url: 'http://localhost:9090/')], contextPath: 'jenkins-cicd', jar: '**/*.jar'
-            }
-        }
-      */
+
 
     }
 }
