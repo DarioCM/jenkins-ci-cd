@@ -22,6 +22,13 @@ pipeline{
             }
         }
 
+        stage("Check Docker Access") {
+            steps {
+                sh 'which docker'
+                sh 'docker --version'
+            }
+        }
+
         stage("Build Image"){
           steps{
             script{
