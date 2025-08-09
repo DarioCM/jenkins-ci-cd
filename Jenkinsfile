@@ -33,7 +33,7 @@ pipeline{
           steps{
             script{
               // using unix base so, name and version . means base root
-              sh 'docker build -t ç .'
+               sh 'docker build -t darioccm/jenkins-cicd:1.0 .'
                //                 user_name_docker_hub/image_name:version .means root level
             }
           }
