@@ -39,15 +39,19 @@ pipeline{
           }
         }
 
-        stage("Deploy Image to Docker HUB"){
-          steps{
-            withCredentials([string(credentialsId: 'docker-cred', variable: 'docker-cred')]) {
-               sh 'docker login  -u darioccm -p ${docker-cred}'
-               //sh 'docker tag jenkins-cicd:1.0 darioccm/jenkins-cicd:1.0 '
-               sh 'docker push darioccm/jenkins-cicd:1.0'
-            }
+         stage("Deploy Image to Docker HUB"){
+           steps{
+             withCredentials([usernamePassword(credentialsId: 'docker-cred',
+               passwordVariable: 'DOCKER_PWD', usernameVariable: 'DOCKER_USER')]) {
 
-          }
+               // secure login (no password in args)
+               sh 'echo "$DOCKER_PWD" | docker login -u "$DOCKER_USER" --password-stdin'
+
+               // push the same image you built; repo derived from the credential username
+               sh 'docker push "$DOCKER_USER"/jenkins-cicd:1.0'
+             }
+           }
+         }
 
         }
 
