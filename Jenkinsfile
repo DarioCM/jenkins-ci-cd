@@ -42,7 +42,7 @@ pipeline{
         stage("Deploy Image to Docker HUB"){
           steps{
             withCredentials([string(credentialsId: 'docker-cred', variable: 'docker-cred')]) {
-               sh 'docker login  -u dario -p ${docker-cred}'
+               sh 'docker login  -u darioccm -p ${docker-cred}'
                //sh 'docker tag jenkins-cicd:1.0 darioccm/jenkins-cicd:1.0 '
                sh 'docker push darioccm/jenkins-cicd:1.0'
             }
